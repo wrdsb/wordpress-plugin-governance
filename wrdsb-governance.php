@@ -17,7 +17,7 @@
  * Plugin URI:        https://github.com/wrdsb/wordpress-plugin-governance
  * Description:       Procedures, Policies, Protocols, Guidelines, Forms Management and Meta Data
  * Version:           1.0.0
- * Author:            Suzanne Carter, James Schumann, WRDSB
+ * Author:            WRDSB
  * Author URI:        https://www.wrdsb.ca
  * License:           GPL2+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
