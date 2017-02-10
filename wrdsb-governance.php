@@ -15,11 +15,11 @@
  * @wordpress-plugin
  * Plugin Name:       WRDSB Governance
  * Plugin URI:        https://github.com/wrdsb/wordpress-plugin-governance
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Description:       Procedures, Policies, Protocols, Guidelines, Forms Management and Meta Data
  * Version:           1.0.0
- * Author:            WRDSB
+ * Author:            Suzanne Carter, James Schumann, WRDSB
  * Author URI:        https://www.wrdsb.ca
- * License:           GPL-2.0+
+ * License:           GPL2+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       wrdsb-governance
  * Domain Path:       /languages

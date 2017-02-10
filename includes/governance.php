@@ -1,29 +1,4 @@
 <?php
-/*
-Plugin Name: WRDSB Governance Files
-Plugin URI:
-Description: Procedures, Policies, Protocols, Guidelines, Forms Management and Meta Data
-Version: 0.0.1
-Author: Suzanne Carter
-Author URI: http://www.wrdsb.ca/
-License: GPL2
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Text Domain: wrdsb
-Domain Path:
-*/
-
-require_once dirname( __FILE__ ) . "/related/doc_owner.php";
-require_once dirname( __FILE__ ) . "/related/doc_status.php";
-require_once dirname( __FILE__ ) . "/related/doc_workflow.php";
-require_once dirname( __FILE__ ) . "/related/responsibility.php";
-require_once dirname( __FILE__ ) . "/related/policy_tags.php";
-require_once dirname( __FILE__ ) . "/related/procedure_tags.php";
-require_once dirname( __FILE__ ) . "/related/form_tags.php";
-require_once dirname( __FILE__ ) . "/related/guideline_tags.php";
-require_once dirname( __FILE__ ) . "/related/protocol_tags.php";
-require_once dirname( __FILE__ ) . "/related/related_references.php";
-require_once dirname( __FILE__ ) . "/related/legal_references.php";
-
 if ( ! function_exists('wrdsb_governance') ) {
 
 	// Register Custom Post Type
@@ -158,28 +133,4 @@ if ( ! function_exists('wrdsb_governance') ) {
 	    }
 	}
 
-	/* see syndication-categories for rest of code 
-	function wrdsb_doc_status_tags_activation() {
-		wrdsb_doc_status_custom_taxonomy();
-		wp_insert_term('Locked','wrdsb_doc_status_tags',
-			array(
-				'description' => 'This document is only visible to employees of the WRDSB. It may not be published on any WRDSB public website.',
-				'slug'        => 'locked',
-			)
-		);
-		wp_insert_term('Public','wrdsb_doc_status_tags',
-			array(
-				'description' => 'This document may be displayed on WRDSB public websites.',
-				'slug'        => 'public',
-			)
-		);
-		wp_insert_term('Staff Only','wrdsb_doc_status_tags',
-			array(
-				'description' => 'This document may only be displayed to employees of the WRDSB, but shown to the public through the course of doing business.',
-				'slug'        => 'staff-only',
-			)
-		);
-		update_option('wrdsb_syndication_categories_version', WRDSB_SYNDICATION_CATEGORIES_VERSION);
-
-	} */
 }
