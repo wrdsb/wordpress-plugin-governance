@@ -72,6 +72,7 @@ class WRDSB_Governance {
 		$this->version = '1.0.0';
 
 		$this->load_dependencies();
+		$this->define_plugin_hooks();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 
@@ -111,7 +112,30 @@ class WRDSB_Governance {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-wrdsb-governance-public.php';
 
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/custom-post-types/class-wrdsb-governance-board-policy.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/custom-post-types/class-wrdsb-governance-board-procedure.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/custom-post-types/class-wrdsb-governance-system-memo.php';
+
 		$this->loader = new WRDSB_Governance_Loader();
+
+	}
+	
+	/**
+	 * Register all of the hooks enabling base functionality for the plugin,
+	 * such as custom post types, taxonomies, etc.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+	private function define_plugin_hooks() {
+
+		$board_policy_cpt = new WRDSB_Governance_Board_Policy_CPT();
+		$board_procedure_cpt = new WRDSB_Governance_Board_Procedure_CPT();
+		$system_memo_cpt = new WRDSB_Governance_System_Memo_CPT();
+
+		$this->loader->add_action( 'init', $board_policy_cpt, 'register_cpt', 0 );
+		$this->loader->add_action( 'init', $board_procedure_cpt, 'register_cpt', 0 );
+		$this->loader->add_action( 'init', $system_memo_cpt, 'register_cpt', 0 );
 
 	}
 
