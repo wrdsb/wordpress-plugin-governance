@@ -119,9 +119,10 @@ class WRDSB_Governance {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/taxonomies/class-wrdsb-governance-categories.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/taxonomies/class-wrdsb-governance-tags.php';
 
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/taxonomies/class-wrdsb-governance-privacy-levels.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/taxonomies/class-wrdsb-governance-offices.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/taxonomies/class-wrdsb-governance-organizational-units.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/taxonomies/class-wrdsb-governance-privacy-levels.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/taxonomies/class-wrdsb-governance-lifecycle-phases.php';
 
 		$this->loader = new WRDSB_Governance_Loader();
 
@@ -143,9 +144,10 @@ class WRDSB_Governance {
 		$governance_categories_ctax = new WRDSB_Governance_Categories_CTax();
 		$governance_tags_ctax = new WRDSB_Governance_Tags_CTax();
 
-		$governance_privacy_levels_ctax = new WRDSB_Governance_Privacy_Levels_CTax();
 		$governance_offices_ctax = new WRDSB_Governance_Offices_CTax();
 		$governance_org_units_ctax = new WRDSB_Governance_Organizational_Units_CTax();
+		$governance_privacy_levels_ctax = new WRDSB_Governance_Privacy_Levels_CTax();
+		$governance_lifecycle_phases_ctax = new WRDSB_Governance_Lifecycle_Phases_CTax();
 
 		$this->loader->add_action( 'init', $board_policy_cpt, 'register_cpt', 0 );
 		$this->loader->add_action( 'init', $board_procedure_cpt, 'register_cpt', 0 );
@@ -155,6 +157,7 @@ class WRDSB_Governance {
 		$this->loader->add_action( 'init', $governance_tags_ctax, 'register_ctax', 0);
 
 		$this->loader->add_action( 'init', $governance_privacy_levels_ctax, 'register_ctax', 0);
+		$this->loader->add_action( 'init', $governance_lifecycle_phases_ctax, 'register_ctax', 0);
 		$this->loader->add_action( 'init', $governance_offices_ctax, 'register_ctax', 0);
 		$this->loader->add_action( 'init', $governance_org_units_ctax, 'register_ctax', 0);
 	}

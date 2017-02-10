@@ -14,7 +14,8 @@ The plugin also provides two Governance-specific custom taxonomies:
 
 ## General Purpose Taxonomies
 The plugin also provides several more general purpose taxonomies which may also prove useful elsewhere:
-* Privacy Levels (slug: privacy_levels)
 * Offices (slug: offices)
 * Organizational Units (slug: org-units)
+* Privacy Levels (slug: privacy_levels)
+* Lifecycle Phases (slug: lifecycle_phases)
 
