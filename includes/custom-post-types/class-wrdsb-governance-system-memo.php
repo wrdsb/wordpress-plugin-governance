@@ -49,6 +49,7 @@ class WRDSB_Governance_System_Memo_CPT {
 		'exclude_from_search'   => false,
 		'publicly_queryable'    => true,
 		'capability_type'       => 'page',
+		'rewrite'               => array( 'slug' => 'system-memos', 'with_front' => FALSE ),
 		'show_in_rest'          => false,
 		'rest_base'             => 'wrdsb',
 	);
