@@ -60,5 +60,75 @@ class WRDSB_Governance_System_Memo_CPT {
 		$cpt_args['labels'] = $this->labels;
 		register_post_type( 'system_memo', $cpt_args );
 	}
+
+	public function set_slug_on_publish( $new_status, $old_status, $post ) {
+
+		// If we're dealing with a System Memo
+		if($post->post_type == 'system_memo') {
+
+			// And if we're publishing the memo
+			if ( ($old_status != 'publish') && ($new_status == 'publish') ) {
+
+				// And if this is the first time we've assigned a number to it
+				// ie the post's slug doesn't match our sequencing pattern
+				if ( !preg_match('/[a-zA-Z]\d\d\d\d/', $post->post_name) ) {
+
+					// Fetch the most recently published System Memos
+					$query = wp_get_recent_posts( array(
+						'numberposts' => 1,
+						'offset' => 0,
+						'exclude' => $post->ID,
+						'post_type' => 'system_memo',
+						'post_status' => 'publish',
+						'suppress_filters' => true
+					), OBJECT);
+
+					// If we have published System Memos
+					if ($query) {
+						$last_published_memo = $query[0];
+						$last_published_memo_slug = $last_published_memo->post_name;
+						$last_published_memo_number = (int) substr($last_published_memo_slug, 1, 4);
+						$this_memo_number = $last_published_memo_number + 1;
+						$memo_slug = 'A'. str_pad($this_memo_number, 4, '0', STR_PAD_LEFT);
+
+						// Assume our slug is unique
+						$unique_slug = TRUE;
+
+						// Validate our assumption by searching for a post with the same slug
+						do {
+							// Find a post with the same slug, if it exists
+							$args = array(
+								'name'        => $memo_slug,
+								'post_type'   => 'system_memo',
+								'post_status' => 'publish,pending,draft',
+								'numberposts' => 1,
+								'exclude' => $post->ID
+							);
+							$posts_with_our_slug = get_posts($args);
+
+							// If a post with the same slug exists,
+							// mark our slug as non-unique, increment it, and try again
+							if( count($posts_with_our_slug) > 0 ) :
+								$unique_slug = FALSE;
+								$this_memo_number += 1;
+								$memo_slug = 'A'. str_pad($this_memo_number, 4, '0', STR_PAD_LEFT);
+							else:
+								$unique_slug = TRUE;
+							endif;
+						}
+						while ( $unique_slug == FALSE );
+
+					// Else this is our first published System Memo
+					} else {
+						$memo_slug = 'A0001';
+					}
+
+					$post->post_name = $memo_slug;
+					wp_update_post($post);
+				}
+
+			}
+		}
+	}
 }
 

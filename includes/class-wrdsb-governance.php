@@ -166,6 +166,8 @@ class WRDSB_Governance {
 		$this->loader->add_action( 'init', $governance_privacy_levels_ctax, 'register_ctax', 0);
 		$this->loader->add_action( 'init', $governance_lifecycle_phases_ctax, 'register_ctax', 0);
 		$this->loader->add_action( 'init', $governance_audiences_ctax, 'register_ctax', 0);
+
+		$this->loader->add_action( 'transition_post_status', $system_memo_cpt, 'set_slug_on_publish', 10, 3);
 	}
 
 	/**
