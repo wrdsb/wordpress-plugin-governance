@@ -39,6 +39,6 @@ class WRDSB_Governance_Organizational_Units_CTax {
 	function register_ctax() {
 		$ctax_args = $this->args;
 		$ctax_args['labels'] = $this->labels;
-		register_taxonomy( 'org-units', array( 'board_policy', 'board_procedure', 'system_memo' ), $ctax_args );
+		register_taxonomy( 'org_units', array( 'board_policy', 'board_procedure', 'system_memo' ), $ctax_args );
 	}
 }

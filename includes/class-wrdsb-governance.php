@@ -199,6 +199,8 @@ class WRDSB_Governance {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		$this->loader->add_filter( 'single_template',    $plugin_public, 'get_custom_post_type_single_template', 10, 1 );
+		$this->loader->add_filter( 'archive_template',   $plugin_public, 'get_custom_post_type_archive_template', 10, 1 );
 
 	}
 

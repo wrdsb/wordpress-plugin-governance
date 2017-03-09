@@ -100,4 +100,31 @@ class WRDSB_Governance_Public {
 
 	}
 
+	/**
+	 * Register the theme templates for the public-facing side of the site.
+	 *
+	 * @since    1.0.0
+	 */
+	public function get_custom_post_type_single_template( $single_template ) {
+		global $post;
+
+		if ( $post->post_type == 'system_memo' ) {
+			$single_template = dirname( __FILE__ ) . '/page-templates/single-system_memo.php';
+		}
+		return $single_template;
+	}
+
+	/**
+	 * Register the theme templates for the public-facing side of the site.
+	 *
+	 * @since    1.0.0
+	 */
+	public function get_custom_post_type_archive_template( $archive_template ) {
+		global $post;
+
+		if ( is_post_type_archive( 'system_memo' ) ) {
+			$archive_template = dirname( __FILE__ ) . '/page-templates/archive-system_memo.php';
+		}
+		return $archive_template;
+	}
 }
