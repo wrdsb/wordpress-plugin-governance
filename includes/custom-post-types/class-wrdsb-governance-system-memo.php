@@ -71,7 +71,7 @@ class WRDSB_Governance_System_Memo_CPT {
 
 				// And if this is the first time we've assigned a number to it
 				// ie the post's slug doesn't match our sequencing pattern
-				if ( !preg_match('/[a-zA-Z]\d\d\d\d/', $post->post_name) ) {
+				if ( !preg_match('/[a-zA-Z]\d\d\d/', $post->post_name) ) {
 
 					// Fetch the most recently published System Memos
 					$query = wp_get_recent_posts( array(
@@ -87,9 +87,9 @@ class WRDSB_Governance_System_Memo_CPT {
 					if ($query) {
 						$last_published_memo = $query[0];
 						$last_published_memo_slug = $last_published_memo->post_name;
-						$last_published_memo_number = (int) substr($last_published_memo_slug, 1, 4);
+						$last_published_memo_number = (int) substr($last_published_memo_slug, 1, 3);
 						$this_memo_number = $last_published_memo_number + 1;
-						$memo_slug = 'A'. str_pad($this_memo_number, 4, '0', STR_PAD_LEFT);
+						$memo_slug = 'A'. str_pad($this_memo_number, 3, '0', STR_PAD_LEFT);
 
 						// Assume our slug is unique
 						$unique_slug = TRUE;
@@ -111,7 +111,7 @@ class WRDSB_Governance_System_Memo_CPT {
 							if( count($posts_with_our_slug) > 0 ) :
 								$unique_slug = FALSE;
 								$this_memo_number += 1;
-								$memo_slug = 'A'. str_pad($this_memo_number, 4, '0', STR_PAD_LEFT);
+								$memo_slug = 'A'. str_pad($this_memo_number, 3, '0', STR_PAD_LEFT);
 							else:
 								$unique_slug = TRUE;
 							endif;
@@ -120,7 +120,7 @@ class WRDSB_Governance_System_Memo_CPT {
 
 					// Else this is our first published System Memo
 					} else {
-						$memo_slug = 'A0001';
+						$memo_slug = 'A001';
 					}
 
 					$post->post_name = $memo_slug;
