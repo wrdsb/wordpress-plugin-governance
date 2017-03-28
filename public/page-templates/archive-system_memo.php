@@ -19,7 +19,6 @@
   <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
-  <script src="https://s3.amazonaws.com/wrdsb-theme/js/addtohomescreen.min.js"></script>
   <script src="https://s3.amazonaws.com/wrdsb-theme/js/jquery.floatThead.min.js"></script>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -53,11 +52,16 @@
     ga('send', 'pageview');
   </script>
   <?php } ?>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue-light_blue.min.css">
 </head>
 
 <body id="top">
 
 <!-- header -->
+<!--
   <div class="container container-top">
     <div class="header">
       <div class="row">
@@ -117,8 +121,8 @@
           wp_page_menu(array('depth' => 1, 'show_home' => true, 'menu_class' => 'collapse navbar-collapse' ));
         } ?>
         </div>
-    </div><!-- /.navbar -->
-  </div><!-- /.container-top -->
+    </div>
+  </div>
 
   <div class="container container-breadcrumb" role="navigation">
     <ol class="breadcrumb">
@@ -126,32 +130,94 @@
       <li><a href="/system-memos">System Memos</a></li>
     </ol>
   </div>
-
+-->
 <div class="container">
   <div class="row">
       <div class="col-sm-8">
         <?php
-        echo '<div>';
-        // Previous/next post navigation.
-        if( get_previous_posts_link() ) :
-          previous_posts_link( '« Newer Memos' );
-          echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-        endif;
-        if( get_next_posts_link() ) :
-          next_posts_link( 'Older Memos »' );
-        endif;
-        echo '</div>';
+        echo '<div><h1>All System Memos</h1></div>';
+
+        echo '<p>';
+        echo '<span class="mdl-chip">';
+        echo '<button type="button" class="mdl-chip__action"><i class="material-icons">warning</i></button>';
+        echo '<span class="mdl-chip__text">&nbsp;&nbsp;Action</span>';
+        echo '</span>';
+
+        echo '&nbsp;&nbsp;';
+
+        echo '<span class="mdl-chip">';
+        echo '<button type="button" class="mdl-chip__action"><i class="material-icons">announcement</i></button>';
+        echo '<span class="mdl-chip__text">&nbsp;&nbsp;Announcement</span>';
+        echo '</span>';
+
+        echo '&nbsp;&nbsp;';
+
+        echo '<span class="mdl-chip">';
+        echo '<button type="button" class="mdl-chip__action"><i class="material-icons">info</i></button>';
+        echo '<span class="mdl-chip__text">&nbsp;&nbsp;Information</span>';
+        echo '</span>';
+
+        echo '&nbsp;&nbsp;';
+
+        echo '<span class="mdl-chip">';
+        echo '<button type="button" class="mdl-chip__action"><i class="material-icons">school</i></button>';
+        echo '<span class="mdl-chip__text">&nbsp;&nbsp;PD</span>';
+        echo '</span>';
+
+        echo '&nbsp;&nbsp;';
+
+        echo '<span class="mdl-chip">';
+        echo '<button type="button" class="mdl-chip__action"><i class="material-icons">alarm</i></button>';
+        echo '<span class="mdl-chip__text">&nbsp;&nbsp;Reminder</span>';
+        echo '</span>';
+        echo '</p>';
 
         // Start the Loop.
         while ( have_posts() ) : the_post();
-          the_title( '<h2 class="news"><a href="'. esc_url( get_permalink() ) .'" rel="bookmark">'. strtoupper($post->post_name) .': ', '</a></h2>' );      
-          echo '<small class="gray-dark">Posted: '. get_the_date('F j, Y') .' at '. get_the_time('g:i a') .'</small>';
-          if ( has_excerpt() ) {
-            the_excerpt();
-            echo '<p class="readmore"><a href="'. get_permalink($post->ID) . '"><strong>Read more about</strong> <cite>'. get_the_title($post->ID) .'</cite> &#187;</a></p>';
-          } else {
-            the_excerpt();
-          }
+          echo '<div class="system-memo mdl-card mdl-shadow--8dp" style="width:100%">';
+            echo '<div class="mdl-card__title" style="background-color:#0D47A1">';
+              echo '<div style="width:10%; color:white;">';
+              $governance_categories = get_the_terms( $post->ID, 'governance_categories' );
+              if ( $governance_categories ) {
+                foreach ( $governance_categories as $term ) {
+                  echo '<div id="'. $post->ID .'-'. $term->term_id .'">';
+                  if ($term->name == 'Action') {                   echo '<i class="material-icons">warning</i>'; }
+                  if ($term->name == 'Announcement') {             echo '<i class="material-icons">announcement</i>'; }
+                  if ($term->name == 'Information') {              echo '<i class="material-icons">info</i>'; }
+                  if ($term->name == 'Professional Development') { echo '<i class="material-icons">school</i>'; }
+                  if ($term->name == 'Reminder') {                 echo '<i class="material-icons">alarm</i>'; }
+                  echo '</div>'.'<div class="mdl-tooltip mdl-tooltip--large" data-mdl-for="'. $post->ID .'-'. $term->term_id .'">'. $term->name .'</div>';
+                }
+              }
+              echo '</div><div style="width:90%">';
+              echo '<h2>';
+              echo '<div class="mdl-card__title-text" style="color:white">'. get_the_title() .'</div>';
+              echo '<div class="mdl-card__subtitle-text" style="color:white">System Memo '. strtoupper($post->post_name) .' &ndash; '. get_the_date('F j, Y') .' at '. get_the_time('g:i a') .'</div>';
+              echo '</h2>';
+              echo '</div>';
+            echo '</div>';
+            echo '<div class="mdl-card__supporting-text">';
+              //echo '<p>';
+              //$audiences = get_the_terms( $post->ID, 'audiences' );
+              //if ( $audiences ) {
+                //$audiences_list = '';
+                //foreach ( $audiences as $audience ) {
+                  //$audiences_list .= '<a style="color:#0D47A1" href="#">'. $audience->name . '</a> &middot; '; 
+                //}
+                //$audiences_list = rtrim($audiences_list, ' &middot; ');
+                //echo $audiences_list;
+              //}
+              //echo '</p>';
+              the_excerpt();
+            echo '</div>';
+            echo '<div class="mdl-card__actions mdl-card--border">';
+              echo '<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" style="color:#0D47A1" href="'. get_permalink($post->ID) . '">Read Full Memo</a>';
+              //echo '<button class="mdl-button mdl-js-button mdl-button--icon">';
+              //echo '<i class="material-icons">keyboard_arrow_down</i>';
+              //echo '</button>';
+            echo '</div>';
+          echo '</div>';
+          echo '<p></p>';
         endwhile;
 
         echo '<div>';
@@ -228,7 +294,7 @@
 
   </div>
 </div>
-
+<!--
     <div id="footer" class="footer" role="contentinfo">
       <div class="container">
         <div class="row">
@@ -260,6 +326,8 @@
       } ?>
       </p>
     </div>
+-->
   <?php wp_footer(); ?>
+  <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 </body>
 </html>
