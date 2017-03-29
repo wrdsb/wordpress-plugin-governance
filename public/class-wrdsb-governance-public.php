@@ -127,4 +127,20 @@ class WRDSB_Governance_Public {
 		}
 		return $archive_template;
 	}
+
+	/**
+	 * Register the rewrite rules for the public-facing side of the site.
+	 *
+	 * @since    1.0.0
+	 */
+	public function register_rewrite_rules() {
+		// /system-memos/by-audience/{audience}
+		add_rewrite_rule('system-memos/by-audience/(.+?)/?$', 'index.php?post_type=system_memo&audiences=$matches[1]', 'top');
+
+		// /system-memos/by-category/{category}
+		add_rewrite_rule('system-memos/by-category/(.+?)/?$', 'index.php?post_type=system_memo&governance_categories=$matches[1]', 'top');
+
+		// /system-memos/by-tag/{tag}
+		add_rewrite_rule('system-memos/by-tag/(.+?)/?$', 'index.php?post_type=system_memo&governance_tags=$matches[1]', 'top');
+	}
 }

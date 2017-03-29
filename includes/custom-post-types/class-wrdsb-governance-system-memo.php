@@ -49,7 +49,7 @@ class WRDSB_Governance_System_Memo_CPT {
 		'exclude_from_search'   => false,
 		'publicly_queryable'    => true,
 		'capability_type'       => 'page',
-		'rewrite'               => array( 'slug' => 'system-memos', 'with_front' => FALSE ),
+		'rewrite'               => array( 'slug' => 'system-memos', 'with_front' => FALSE, 'ep_mask' => EP_PERMALINK ),
 		'show_in_rest'          => false,
 		'rest_base'             => 'wrdsb',
 	);
@@ -128,6 +128,20 @@ class WRDSB_Governance_System_Memo_CPT {
 				}
 
 			}
+		}
+	}
+
+	public function by_audience_query( $query ) {
+		if ( $query->is_main_query() && is_post_type_archive( 'system_memo' ) && is_tax( 'audiences' ) && !is_admin() ) {
+			$term = get_term_by( 'slug', $query->tax_query->queries[0]['terms'][0], 'audiences' );
+			$ancestor_ids = get_ancestors($term->term_id, 'audiences', 'taxonomy');
+
+			foreach ($ancestor_ids as $ancestor) {
+		  		$ancestor = get_term($ancestor, 'audiences');
+		  		$query->tax_query->queries[0]['terms'][] = $ancestor->slug;
+			}
+
+			$query->tax_query->queries[0]['include_children'] = 0;
 		}
 	}
 }

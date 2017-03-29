@@ -135,39 +135,43 @@
   <div class="row">
       <div class="col-sm-8">
         <?php
-        echo '<div><h1>All System Memos</h1></div>';
+        if (is_tax( 'audiences' )):
+          echo '<div><h1>System Memos for '. single_term_title('', false) .'</h1></div>'; 
+        elseif (is_post_type_archive( 'system_memo' )):
+          echo '<div><h1>All System Memos</h1></div>'; 
+        endif;
 
         echo '<p>';
-        echo '<span class="mdl-chip">';
-        echo '<button type="button" class="mdl-chip__action"><i class="material-icons">warning</i></button>';
+        echo '<span class="mdl-chip" onclick="location.href=\'/system-memos/action\';">';
+        echo '<button type="button" class="mdl-chip__action" onclick="location.href=\'/system-memos/action\';"><i class="material-icons">directions_run</i></button>';
         echo '<span class="mdl-chip__text">&nbsp;&nbsp;Action</span>';
         echo '</span>';
 
         echo '&nbsp;&nbsp;';
 
-        echo '<span class="mdl-chip">';
-        echo '<button type="button" class="mdl-chip__action"><i class="material-icons">announcement</i></button>';
+        echo '<span class="mdl-chip" onclick="location.href=\'/system-memos/announcement\';">';
+        echo '<button type="button" class="mdl-chip__action" onclick="location.href=\'/system-memos/announcement\';"><i class="material-icons">announcement</i></button>';
         echo '<span class="mdl-chip__text">&nbsp;&nbsp;Announcement</span>';
         echo '</span>';
 
         echo '&nbsp;&nbsp;';
 
-        echo '<span class="mdl-chip">';
-        echo '<button type="button" class="mdl-chip__action"><i class="material-icons">info</i></button>';
+        echo '<span class="mdl-chip" onclick="location.href=\'/system-memos/information\';">';
+        echo '<button type="button" class="mdl-chip__action" onclick="location.href=\'/system-memos/information\';"><i class="material-icons">info</i></button>';
         echo '<span class="mdl-chip__text">&nbsp;&nbsp;Information</span>';
         echo '</span>';
 
         echo '&nbsp;&nbsp;';
 
-        echo '<span class="mdl-chip">';
-        echo '<button type="button" class="mdl-chip__action"><i class="material-icons">school</i></button>';
+        echo '<span class="mdl-chip" onclick="location.href=\'/system-memos/professional-development\';">';
+        echo '<button type="button" class="mdl-chip__action" onclick="location.href=\'/system-memos/professional-development\';"><i class="material-icons">school</i></button>';
         echo '<span class="mdl-chip__text">&nbsp;&nbsp;PD</span>';
         echo '</span>';
 
         echo '&nbsp;&nbsp;';
 
-        echo '<span class="mdl-chip">';
-        echo '<button type="button" class="mdl-chip__action"><i class="material-icons">alarm</i></button>';
+        echo '<span class="mdl-chip" onclick="location.href=\'/system-memos/reminder\';">';
+        echo '<button type="button" class="mdl-chip__action" onclick="location.href=\'/system-memos/reminder\';"><i class="material-icons">alarm</i></button>';
         echo '<span class="mdl-chip__text">&nbsp;&nbsp;Reminder</span>';
         echo '</span>';
         echo '</p>';
@@ -175,46 +179,31 @@
         // Start the Loop.
         while ( have_posts() ) : the_post();
           echo '<div class="system-memo mdl-card mdl-shadow--8dp" style="width:100%">';
-            echo '<div class="mdl-card__title" style="background-color:#0D47A1">';
-              echo '<div style="width:10%; color:white;">';
+            echo '<div class="mdl-card__menu" style="color:white;">';
               $governance_categories = get_the_terms( $post->ID, 'governance_categories' );
               if ( $governance_categories ) {
                 foreach ( $governance_categories as $term ) {
-                  echo '<div id="'. $post->ID .'-'. $term->term_id .'">';
-                  if ($term->name == 'Action') {                   echo '<i class="material-icons">warning</i>'; }
+                  echo '<span id="'. $post->ID .'-'. $term->term_id .'">';
+                  if ($term->name == 'Action') {                   echo '<i class="material-icons">directions_run</i>'; }
                   if ($term->name == 'Announcement') {             echo '<i class="material-icons">announcement</i>'; }
                   if ($term->name == 'Information') {              echo '<i class="material-icons">info</i>'; }
                   if ($term->name == 'Professional Development') { echo '<i class="material-icons">school</i>'; }
                   if ($term->name == 'Reminder') {                 echo '<i class="material-icons">alarm</i>'; }
-                  echo '</div>'.'<div class="mdl-tooltip mdl-tooltip--large" data-mdl-for="'. $post->ID .'-'. $term->term_id .'">'. $term->name .'</div>';
+                  echo '</span>'.'<span class="mdl-tooltip mdl-tooltip--large" data-mdl-for="'. $post->ID .'-'. $term->term_id .'">'. $term->name .'</span>';
                 }
               }
-              echo '</div><div style="width:90%">';
+            echo '</div>';
+            echo '<div class="mdl-card__title" style="background-color:#0D47A1">';
               echo '<h2>';
-              echo '<div class="mdl-card__title-text" style="color:white">'. get_the_title() .'</div>';
-              echo '<div class="mdl-card__subtitle-text" style="color:white">System Memo '. strtoupper($post->post_name) .' &ndash; '. get_the_date('F j, Y') .' at '. get_the_time('g:i a') .'</div>';
+                echo '<div class="mdl-card__title-text" style="color:white">'. get_the_title() .'</div>';
+                echo '<div class="mdl-card__subtitle-text" style="color:white">System Memo '. strtoupper($post->post_name) .' &ndash; '. get_the_date('F j, Y') .' at '. get_the_time('g:i a') .'</div>';
               echo '</h2>';
-              echo '</div>';
             echo '</div>';
             echo '<div class="mdl-card__supporting-text">';
-              //echo '<p>';
-              //$audiences = get_the_terms( $post->ID, 'audiences' );
-              //if ( $audiences ) {
-                //$audiences_list = '';
-                //foreach ( $audiences as $audience ) {
-                  //$audiences_list .= '<a style="color:#0D47A1" href="#">'. $audience->name . '</a> &middot; '; 
-                //}
-                //$audiences_list = rtrim($audiences_list, ' &middot; ');
-                //echo $audiences_list;
-              //}
-              //echo '</p>';
               the_excerpt();
             echo '</div>';
             echo '<div class="mdl-card__actions mdl-card--border">';
               echo '<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" style="color:#0D47A1" href="'. get_permalink($post->ID) . '">Read Full Memo</a>';
-              //echo '<button class="mdl-button mdl-js-button mdl-button--icon">';
-              //echo '<i class="material-icons">keyboard_arrow_down</i>';
-              //echo '</button>';
             echo '</div>';
           echo '</div>';
           echo '<p></p>';
@@ -223,11 +212,15 @@
         echo '<div>';
         // Previous/next post navigation.
         if( get_previous_posts_link() ) :
-          previous_posts_link( '« Newer Memos' );
+          echo '<button class="mdl-button mdl-js-button mdl-button--primary mdl-js-ripple-effect" onclick="location.href=\''. get_previous_posts_page_link() .'\'">';
+          echo '« Newer Memos';
+          echo '</button>';
           echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
         endif;
         if( get_next_posts_link() ) :
-          next_posts_link( 'Older Memos »' );
+          echo '<button class="mdl-button mdl-js-button mdl-button--primary mdl-js-ripple-effect" onclick="location.href=\''. get_next_posts_page_link() .'\'">';
+          echo 'Older Memos »';
+          echo '</button>';
         endif;
         echo '</div>';
 
@@ -241,8 +234,16 @@
           'hide_empty' => true,
         ) );
 
+$term = get_queried_object();
+$ancestor_ids = get_ancestors($term->term_id, 'audiences', 'taxonomy');
+$ancestor_slugs = array();
+$ancestor_slugs[] = $term->slug;
+foreach ($ancestor_ids as $ancestor) {
+  $ancestor = get_term($ancestor, 'audiences');
+  $ancestor_slugs[] = $ancestor->slug;
+}
 
-        function hierarchical_audience_tree($category = 0) {
+        function hierarchical_audience_tree($category = 0, $ancestor_slugs = array()) {
           $r = '';
           $args = array(
             'parent' => $category,
@@ -251,8 +252,12 @@
           if ($next) {
             $r .= '<ul>';
             foreach ($next as $cat) {
-              $r .= '<li><a href="/system-memos/by-audience/'.$cat->slug.'">'. $cat->name .'</a>';
-                  $r .= $cat->term_id !== 0 ? hierarchical_audience_tree($cat->term_id) : null;
+              if (in_array($cat->slug, $ancestor_slugs)) {
+                $r .= '<li><a style="background-color:red" href="/system-memos/by-audience/'.$cat->slug.'">'. $cat->name .'</a>';
+              } else {
+                $r .= '<li><a href="/system-memos/by-audience/'.$cat->slug.'">'. $cat->name .'</a>';
+              }
+              $r .= $cat->term_id !== 0 ? hierarchical_audience_tree($cat->term_id, $ancestor_slugs) : null;
             }
             $r .= '</li>';
             $r .= '</ul>';
@@ -264,24 +269,16 @@
 
       <div class="col-sm-4" role="complementary">
         <div class="sidebar-right widget-area" role="complementary">
-          <div class="sub-menu-heading"><span>Memos by Audience</span></div>
+          <div class="sub-menu-heading" style="background-color:#0D47A1"><span>Memos by Audience</span></div>
           <div class="textwidget">
-            <?php echo hierarchical_audience_tree(); ?>
+            <?php echo hierarchical_audience_tree(0, $ancestor_slugs); ?>
           </div>
-          <div class="sub-menu-heading"><span>Memos by Category</span></div>
-          <div class="textwidget">
-            <ul>
-              <?php foreach( $categories as $category ) { ?>
-                <li><a href="<?php echo $category->slug ?>"><?php echo $category->name ?></a></li>
-              <?php } ?>
-            </ul>
-          </div>
-          <div class="sub-menu-heading"><span>Tags</span></div>
+          <div class="sub-menu-heading" style="background-color:#0D47A1"><span>Tags</span></div>
           <div class="textwidget">
               <?php
                 $tags_list = '<p>';
                 foreach ($tags as $tag) {
-                  $tags_list .= '<a href="'. $tag->slug .'">'. $tag->name .'</a> &middot; ';
+                  $tags_list .= '<a href="/system-memos/by-tag/'. $tag->slug .'">'. $tag->name .'</a> &middot; ';
                 }
                 $tags_list = rtrim($tags_list, ' &middot; ');
                 $tags_list .= '</p>';
