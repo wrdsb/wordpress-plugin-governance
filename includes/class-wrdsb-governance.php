@@ -116,16 +116,6 @@ class WRDSB_Governance {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/custom-post-types/class-wrdsb-governance-board-procedure.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/custom-post-types/class-wrdsb-governance-system-memo.php';
 
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/taxonomies/class-wrdsb-governance-categories.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/taxonomies/class-wrdsb-governance-tags.php';
-
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/taxonomies/class-wrdsb-governance-owners.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/taxonomies/class-wrdsb-governance-contacts.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/taxonomies/class-wrdsb-governance-organizational-units.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/taxonomies/class-wrdsb-governance-privacy-levels.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/taxonomies/class-wrdsb-governance-lifecycle-phases.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/taxonomies/class-wrdsb-governance-audiences.php';
-
 		$this->loader = new WRDSB_Governance_Loader();
 
 	}
@@ -143,29 +133,9 @@ class WRDSB_Governance {
 		$board_procedure_cpt = new WRDSB_Governance_Board_Procedure_CPT();
 		$system_memo_cpt = new WRDSB_Governance_System_Memo_CPT();
 
-		$governance_categories_ctax = new WRDSB_Governance_Categories_CTax();
-		$governance_tags_ctax = new WRDSB_Governance_Tags_CTax();
-
-		$governance_owners_ctax = new WRDSB_Governance_Owners_CTax();
-		$governance_contacts_ctax = new WRDSB_Governance_Contacts_CTax();
-		$governance_org_units_ctax = new WRDSB_Governance_Organizational_Units_CTax();
-		$governance_privacy_levels_ctax = new WRDSB_Governance_Privacy_Levels_CTax();
-		$governance_lifecycle_phases_ctax = new WRDSB_Governance_Lifecycle_Phases_CTax();
-		$governance_audiences_ctax = new WRDSB_Governance_Audiences_CTax();
-
 		$this->loader->add_action( 'init', $board_policy_cpt, 'register_cpt', 0 );
 		$this->loader->add_action( 'init', $board_procedure_cpt, 'register_cpt', 0 );
 		$this->loader->add_action( 'init', $system_memo_cpt, 'register_cpt', 0 );
-
-		$this->loader->add_action( 'init', $governance_categories_ctax, 'register_ctax', 0);
-		$this->loader->add_action( 'init', $governance_tags_ctax, 'register_ctax', 0);
-
-		$this->loader->add_action( 'init', $governance_owners_ctax, 'register_ctax', 0);
-		$this->loader->add_action( 'init', $governance_contacts_ctax, 'register_ctax', 0);
-		$this->loader->add_action( 'init', $governance_org_units_ctax, 'register_ctax', 0);
-		$this->loader->add_action( 'init', $governance_privacy_levels_ctax, 'register_ctax', 0);
-		$this->loader->add_action( 'init', $governance_lifecycle_phases_ctax, 'register_ctax', 0);
-		$this->loader->add_action( 'init', $governance_audiences_ctax, 'register_ctax', 0);
 
 		$this->loader->add_action( 'transition_post_status', $system_memo_cpt, 'set_slug_on_publish', 10, 3);
 
