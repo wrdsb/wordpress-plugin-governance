@@ -35,7 +35,7 @@ class WRDSB_Governance_Board_Policy_CPT {
 		'label'                 => 'Policy',
 		'description'           => 'A Board Policy',
 		'supports'              => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'revisions', ),
-		'taxonomies'            => array( 'governance_categories', 'governance_tags' ),
+		'taxonomies'            => array( 'governance_categories', 'governance_tags', 'audiences', 'contacts', 'lifecycle_phases', 'org_units', 'owners', 'privacy_levels' ),
 		'hierarchical'          => false,
 		'public'                => true,
 		'show_ui'               => true,

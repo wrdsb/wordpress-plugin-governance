@@ -35,7 +35,7 @@ class WRDSB_Governance_System_Memo_CPT {
 		'label'                 => 'System Memo',
 		'description'           => 'A System Memo',
 		'supports'              => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'revisions', ),
-		'taxonomies'            => array( 'governance_categories', 'governance_tags' ),
+		'taxonomies'            => array( 'governance_categories', 'governance_tags', 'audiences', 'contacts', 'lifecycle_phases', 'org_units', 'owners', 'privacy_levels' ),
 		'hierarchical'          => false,
 		'public'                => true,
 		'show_ui'               => true,
