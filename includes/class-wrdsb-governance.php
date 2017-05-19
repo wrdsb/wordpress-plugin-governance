@@ -137,6 +137,10 @@ class WRDSB_Governance {
 		$this->loader->add_action( 'init', $board_procedure_cpt, 'register_cpt', 0 );
 		$this->loader->add_action( 'init', $system_memo_cpt, 'register_cpt', 0 );
 
+		$this->loader->add_action( 'plugins_loaded', $board_policy_cpt, 'attach_taxonomies', 0 );
+		$this->loader->add_action( 'plugins_loaded', $board_procedure_cpt, 'attach_taxonomies', 0 );
+		$this->loader->add_action( 'plugins_loaded', $system_memo_cpt, 'attach_taxonomies', 0 );
+
 		$this->loader->add_action( 'transition_post_status', $system_memo_cpt, 'set_slug_on_publish', 10, 3);
 
 		$this->loader->add_action( 'parse_tax_query', $system_memo_cpt, 'by_audience_query');

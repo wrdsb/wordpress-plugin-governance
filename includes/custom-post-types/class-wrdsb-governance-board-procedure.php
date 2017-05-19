@@ -59,5 +59,16 @@ class WRDSB_Governance_Board_Procedure_CPT {
 		$cpt_args['labels'] = $this->labels;
 		register_post_type( 'board_procedure', $cpt_args );
 	}
-}
 
+	// Attach Taxonomies to Custom Post Type
+	public function attach_taxonomies() {
+		register_taxonomy_for_object_type('governance_categories', 'board_procedure');
+		register_taxonomy_for_object_type('governance_tags', 'board_procedure');
+		register_taxonomy_for_object_type('audiences', 'board_procedure');
+		register_taxonomy_for_object_type('contacts', 'board_procedure');
+		register_taxonomy_for_object_type('lifecycle_phases', 'board_procedure');
+		register_taxonomy_for_object_type('org_units', 'board_procedure');
+		register_taxonomy_for_object_type('owners', 'board_procedure');
+		register_taxonomy_for_object_type('privacy_levels','board_procedure');
+	}
+}

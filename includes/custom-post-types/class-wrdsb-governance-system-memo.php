@@ -61,6 +61,18 @@ class WRDSB_Governance_System_Memo_CPT {
 		register_post_type( 'system_memo', $cpt_args );
 	}
 
+	// Attach Taxonomies to Custom Post Type
+	public function attach_taxonomies() {
+		register_taxonomy_for_object_type('governance_categories', 'system-memos');
+		register_taxonomy_for_object_type('governance_tags', 'system-memos');
+		register_taxonomy_for_object_type('audiences', 'system-memos');
+		register_taxonomy_for_object_type('contacts', 'system-memos');
+		register_taxonomy_for_object_type('lifecycle_phases', 'system-memos');
+		register_taxonomy_for_object_type('org_units', 'system-memos');
+		register_taxonomy_for_object_type('owners', 'system-memos');
+		register_taxonomy_for_object_type('privacy_levels','system-memos');
+	}
+
 	public function set_slug_on_publish( $new_status, $old_status, $post ) {
 
 		// If we're dealing with a System Memo
@@ -145,4 +157,3 @@ class WRDSB_Governance_System_Memo_CPT {
 		}
 	}
 }
-
